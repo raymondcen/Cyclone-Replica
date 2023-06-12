@@ -1,11 +1,11 @@
 #include <Adafruit_CircuitPlayground.h>
-
+//var for matching
 int j;
 volatile int k;
-
+//midi
 int A_four = 440;
 float midi[127];
-
+//switchs and buttons
 bool switchBut;
 bool butR;
 
@@ -78,7 +78,7 @@ void loop() {
       CircuitPlayground.setPixelColor(i,255,0,0);
       delay(110);
     }
-//insert
+    
     for(int i = 0; i<10; i++){
       CircuitPlayground.setPixelColor(i,255,50,0);
       delay(110);
@@ -123,7 +123,7 @@ void loop() {
     butR = 0;
   }
 
-//endgame
+//endgame pattern
   if(endFlag == 1 && switchBut){
     for (int i=0; i<2; i++){
      int LED_Num = random(10);
@@ -219,6 +219,7 @@ failFlag = 1;
 butR = 0;
 }
 
+//random selection for green pixel
 void randoSelect(){
   j = random(1,9);
 }

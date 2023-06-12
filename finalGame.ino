@@ -3,6 +3,9 @@
 int j;
 volatile int k;
 
+int A_four = 440;
+float midi[127];
+
 bool switchBut;
 bool butR;
 
@@ -24,6 +27,8 @@ void setup() {
   Serial.begin(9600);
   CircuitPlayground.begin();
   randomSeed(analogRead(0));
+
+  generateMIDI();
 
   pinMode(7, INPUT_PULLUP);
 
@@ -91,7 +96,7 @@ void loop() {
       for(int i = 0; i<10; i++){
       CircuitPlayground.setPixelColor(i,0,255,0);
     }  
-    delay(1000);
+    delay(110);
     CircuitPlayground.clearPixels();
     delay(50);
     gameFlag = 1;
@@ -160,11 +165,13 @@ void gameStart(){
 
     if(butR == 1){
       if(j==k){
+        CircuitPlayground.playTone(midi[71], 200);
         nextLvl();
         butR = 0;
         break;
       } else {
         butR = 0;
+        CircuitPlayground.playTone(midi[30], 200);
         failGame();
         
         break;
@@ -226,5 +233,14 @@ void switchState(){
 
 void lState(){
   butR = 1;
+}
+
+void generateMIDI()
+{
+  for (int x = 0; x < 127; ++x)
+  {
+    midi[x] = (A_four / 32.0) * pow(2.0, ((x - 9.0) / 12.0));
+    Serial.println(midi[x]);
+  }
 }
 
